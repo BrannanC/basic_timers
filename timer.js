@@ -13,6 +13,7 @@ class Timer {
     this.update_interval_rate = update_interval_rate;
     this.interval = null;
     this.paused_time = null;
+    this.elapsed_time = 0;
   }
 
   start(time = Date.now()) {
@@ -31,7 +32,8 @@ class Timer {
 
   update() {
     this.on_update();
-    return this.get_elapsed_time();
+    this.elapsed_time = this.get_elapsed_time();
+    return this.elapsed_time;
   }
 
   pause() {
@@ -69,16 +71,15 @@ class FixedTimer extends Timer {
   }
 
   update() {
-    const elapsed_time = this.get_elapsed_time();
-    if (elapsed_time >= this.duration) {
+    this.elapsed_time = this.get_elapsed_time();
+    if (this.elapsed_time >= this.duration) {
       this.stop();
     } else {
       this.on_update();
     }
 
-    return elapsed_time;
+    return this.elapsed_time;
   }
 }
 
-exports.Timer = Timer;
-exports.FixedTimer = FixedTimer;
+export { Timer, FixedTimer };
