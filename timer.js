@@ -21,9 +21,18 @@ class Timer {
       return null;
     }
 
+    // Resume function
+    if (this.is_running && this.paused_time) {
+      time = Date.now() - (this.paused_time - this.start_time);
+      this.paused_time = null;
+    }
+
     this.is_running = true;
     this.start_time = time;
-    this.on_start();
+
+    if (!this.paused_time) {
+      this.on_start();
+    }
 
     this.interval = setInterval(() => {
       this.update();
@@ -41,11 +50,6 @@ class Timer {
     clearInterval(this.interval);
   }
 
-  resume() {
-    this.start(Date.now() - (this.paused_time - this.start_time));
-    this.paused_time = null;
-  }
-
   stop() {
     if (!this.is_running) {
       return null;
@@ -57,6 +61,11 @@ class Timer {
     this.start_time = null;
     clearInterval(this.interval);
     return end_time;
+  }
+
+  resume() {
+    // Leaving this here to add on_resume function
+    this.start();
   }
 
   get_elapsed_time() {
