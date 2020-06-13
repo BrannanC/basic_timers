@@ -31,6 +31,7 @@ class Timer {
 
   update() {
     this.on_update();
+    return this.get_elapsed_time();
   }
 
   pause() {
@@ -74,5 +75,10 @@ class FixedTimer extends Timer {
     } else {
       this.on_update();
     }
+
+    return elapsed_time;
   }
 }
+
+exports.Timer = Timer;
+exports.FixedTimer = FixedTimer;

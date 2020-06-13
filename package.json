@@ -1,0 +1,25 @@
+{
+  "name": "basic_timers",
+  "version": "0.1.3",
+  "description": "Timer classes",
+  "main": "timer.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BrannanC/basic_timers.git"
+  },
+  "keywords": [
+    "timers",
+    "npm",
+    "module"
+  ],
+  "author": "Brannan Conrad and Euihyeok Lee",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/BrannanC/basic_timers/issues"
+  },
+  "homepage": "https://github.com/BrannanC/basic_timers#readme"
+}
