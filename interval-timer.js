@@ -2,7 +2,7 @@ import { Timer } from "./timer.js";
 import { is_function } from "./util/type-check.js";
 
 class IntervalTime extends Timer {
-  completed_intervals = [];
+  _completed_intervals = [];
   last_completed_elapsed_time = 0;
   constructor(
     on_complete_interval,
@@ -15,21 +15,39 @@ class IntervalTime extends Timer {
     this.on_complete_interval = on_complete_interval;
   }
 
-  complete_interval() {
-    const elapsed_time = this.get_elapsed_time();
+  get completed_intervals() {
+    return this._completed_intervals;
+  }
 
-    if (!elapsed_time) {
-      throw Error("Start timer first");
+  set completed_intervals(value) {
+    this._completed_intervals.push(value);
+  }
+
+  get completed_interval() {
+    if(!this.elapsed_time){
+      throw Error("Start Timer First");
     }
+    return this.elapsed_time - this.last_completed_elapsed_time;
+  }
 
-    this.completed_intervals.push(
-      elapsed_time - this.last_completed_elapsed_time
-    );
-    this.last_completed_elapsed_time = elapsed_time;
+  update_completed_intervals() {
+    this.completed_intervals = this.completed_interval;
+  }
 
+  update_last_completed_elapsed_time() {
+    this.last_completed_elapsed_time = this.elapsed_time;
+  }
+
+  invoke_on_complete_interval() {
     if (is_function(this.on_complete_interval)) {
       this.on_complete_interval();
     }
+  }
+  
+  complete_interval() {
+    this.update_completed_intervals();
+    this.update_last_completed_elapsed_time();
+    this.invoke_on_complete_interval();
   }
 
   retrieve_all_completed_intervals() {
