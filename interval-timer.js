@@ -1,4 +1,5 @@
 import { Timer } from "./timer.js";
+import { is_function } from "./util/type-check.js";
 
 class IntervalTime extends Timer {
   completed_intervals = [];
@@ -26,7 +27,7 @@ class IntervalTime extends Timer {
     );
     this.last_completed_elapsed_time = elapsed_time;
 
-    if (typeof this.on_complete_interval === "function") {
+    if (is_function(this.on_complete_interval)) {
       this.on_complete_interval();
     }
   }
