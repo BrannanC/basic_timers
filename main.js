@@ -1,5 +1,4 @@
 import { Timer } from "./timer.js";
-import { is_function } from "./util/type-check.js";
 
 class IntervalTime extends Timer {
   _completed_intervals = [];
@@ -23,15 +22,12 @@ class IntervalTime extends Timer {
     this._completed_intervals.push(value);
   }
 
-  get completed_interval() {
-    if(!this.elapsed_time){
-      throw Error("Start Timer First");
-    }
+  get_completed_interval() {
     return this.elapsed_time - this.last_completed_elapsed_time;
   }
 
   update_completed_intervals() {
-    this.completed_intervals = this.completed_interval;
+    this.completed_intervals = this.get_completed_interval();
   }
 
   update_last_completed_elapsed_time() {
@@ -39,50 +35,23 @@ class IntervalTime extends Timer {
   }
 
   invoke_on_complete_interval() {
-    if (is_function(this.on_complete_interval)) {
-      this.on_complete_interval();
-    }
+    this.on_complete_interval();
   }
-  
+
+  can_complete_interval() {
+    return this.elapsed_time && this.is_running ? true : false;
+  }
+
   complete_interval() {
+    if (!this.can_complete_interval()) {
+      return null;
+    }
     this.update_completed_intervals();
     this.update_last_completed_elapsed_time();
     this.invoke_on_complete_interval();
   }
 
   retrieve_all_completed_intervals() {
-    this.completed_intervals.forEach((e, i) =>
-      console.log(`Set ${i + 1}: ${e}`)
-    );
+    return this.completed_intervals;
   }
 }
-
-function on_start() {
-  console.log("start");
-}
-
-function on_end() {
-  console.log("end");
-}
-
-function on_update() {
-  //   console.log("update");
-}
-
-function on_complete_interval() {
-  console.count("Completed count");
-}
-
-const it = new IntervalTime(on_complete_interval, on_start, on_end, on_update);
-
-it.start();
-
-const interval_id = setInterval(() => {
-  it.complete_interval();
-}, 3 * 1000);
-
-setTimeout(() => {
-  clearInterval(interval_id);
-  it.stop();
-  it.retrieve_all_completed_intervals();
-}, 10 * 1000);
