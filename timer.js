@@ -1,4 +1,4 @@
-import { is_function } from "./util/type-check.js";
+import { is_function } from "./util/type-checks.js";
 
 class Timer {
   constructor(

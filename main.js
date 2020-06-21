@@ -1,5 +1,5 @@
 import { Timer } from "./timer.js";
-import { is_function } from "./util/type-check.js";
+import { is_function } from "./util/type-checks.js";
 
 class IntervalTime extends Timer {
   _completed_intervals = [];
