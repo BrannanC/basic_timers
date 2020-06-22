@@ -1,3 +1,5 @@
+import { is_function } from "./util/type-checks.js";
+
 class Timer {
   constructor(
     on_start = null,
@@ -31,7 +33,9 @@ class Timer {
     this.start_time = time;
 
     if (!this.paused_time) {
-      this.on_start();
+      if (is_function(this.on_start)) {
+        this.on_start();
+      }
     }
 
     this.interval = setInterval(() => {
@@ -40,7 +44,10 @@ class Timer {
   }
 
   update() {
-    this.on_update();
+    if (is_function(this.on_update)) {
+      this.on_update();
+    }
+
     this.elapsed_time = this.get_elapsed_time();
     return this.elapsed_time;
   }
@@ -57,7 +64,9 @@ class Timer {
 
     const end_time = this.get_elapsed_time();
     this.is_running = false;
-    this.on_end();
+    if (is_function(this.on_end)) {
+      this.on_end();
+    }
     this.start_time = null;
     clearInterval(this.interval);
     return end_time;
@@ -84,7 +93,9 @@ class FixedTimer extends Timer {
     if (this.elapsed_time >= this.duration) {
       this.stop();
     } else {
-      this.on_update();
+      if (is_function(this.on_update)) {
+        this.on_update();
+      }
     }
 
     return this.elapsed_time;
