@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Timer</title>
+    <link rel="stylesheet" href="./stylesheet.css" />
+  </head>
+
+  <body class="flex-center">
+
+    <div class="container flex-center flex-column">
+      <div class="display">00:00:00:00</div>
+      <div class="control">
+        <button type="button" onclick="timer.start()" class="start">Start</button>
+        <button type="button" onclick="timer.stop()" class="stop">Stop</button>
+        <button type="button" onclick="on_pause()" class="pause">Pause</button>
+      </div>
+    </div>
+
+    <script src="../dist/index.js"></script>
+    <script src="./main.js"></script>
+
+  </body>
+</html>
