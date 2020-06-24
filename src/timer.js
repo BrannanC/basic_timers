@@ -1,20 +1,15 @@
 import { is_function } from "./util/type-checks.js";
 
 class Timer {
-  constructor(
-    update_interval_rate = 10,
-    on_start = null,
-    on_end = null,
-    on_update = null,
-    on_resume = null
-  ) {
+  constructor(props = {}) {
     this.start_time = null;
-    this.on_start = on_start;
-    this.on_end = on_end;
-    this.on_update = on_update;
-    this.on_resume = on_resume;
+    this.on_start = props.on_start || null;
+    this.on_end = props.on_end || null;
+    this.on_update = props.on_update || null;
+    this.on_resume = props.on_resume || null;
+    this.on_pause = props.on_pause || null;
     this.is_running = false;
-    this.update_interval_rate = update_interval_rate;
+    this.update_interval_rate = props.update_interval_rate || 10;
     this.interval = null;
     this.paused_time = null;
     this.elapsed_time = 0;
@@ -28,9 +23,6 @@ class Timer {
     // Resume function
     if (this.is_running && this.paused_time) {
       time = Date.now() - (this.paused_time - this.start_time);
-      if (this.on_resume && is_function(this.on_resume)) {
-        this.on_resume();
-      }
       this.paused_time = null;
     }
 
@@ -57,6 +49,13 @@ class Timer {
     return this.elapsed_time;
   }
 
+  resume() {
+    if (this.on_resume && is_function(this.on_resume)) {
+      this.on_resume();
+    }
+    this.start();
+  }
+
   pause() {
     this.paused_time = Date.now();
     clearInterval(this.interval);
@@ -68,6 +67,7 @@ class Timer {
     }
 
     const end_time = this.get_elapsed_time();
+    this.elapsed_time = end_time;
     this.is_running = false;
     if (this.on_end && is_function(this.on_end)) {
       this.on_end();
@@ -78,14 +78,23 @@ class Timer {
   }
 
   get_elapsed_time() {
+    // Private function to calculate elapsed time
     return this.start_time ? Date.now() - this.start_time : null;
+  }
+
+  get_time() {
+    // Public function to return elapsed time
+    return this.elapsed_time;
   }
 }
 
 class FixedTimer extends Timer {
-  constructor(duration, on_start, on_end, on_update, update_interval_rate) {
-    super(on_start, on_end, on_update, update_interval_rate);
-    this.duration = duration;
+  constructor(props) {
+    super(props);
+    if (!props || !props.duration) {
+      throw new Error("FixedTimer requires a duration");
+    }
+    this.duration = props.duration;
   }
 
   update() {

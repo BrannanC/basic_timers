@@ -2,15 +2,9 @@ import { Timer } from "./timer.js";
 import { is_function } from "./util/type-checks.js";
 
 class IntervalTimer extends Timer {
-  constructor(
-    on_complete_interval,
-    on_start,
-    on_end,
-    on_update,
-    update_interval_rate
-  ) {
-    super(on_start, on_end, on_update, update_interval_rate);
-    this.on_complete_interval = on_complete_interval;
+  constructor(props = {}) {
+    super(props);
+    this.on_complete_interval = props.on_complete_interval || null;
     this._completed_intervals = [];
     this.last_completed_elapsed_time = 0;
   }
@@ -54,7 +48,7 @@ class IntervalTimer extends Timer {
     this.invoke_on_complete_interval();
   }
 
-  retrieve_all_completed_intervals() {
+  get_all_completed_intervals() {
     return this.completed_intervals;
   }
 }

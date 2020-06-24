@@ -13,7 +13,7 @@ describe("timer.js", () => {
     const on_start = jest.fn();
     const on_end = jest.fn();
     const on_update = jest.fn();
-    const timer = new Timer(on_start, on_end, on_update);
+    const timer = new Timer({ on_start, on_end, on_update });
 
     const advance_time = 10 * 1000;
     beforeEach(() => {
