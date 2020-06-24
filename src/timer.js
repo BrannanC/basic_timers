@@ -1,16 +1,15 @@
+import { is_function } from "./util/type-checks.js";
+
 class Timer {
-  constructor(
-    on_start = null,
-    on_end = null,
-    on_update,
-    update_interval_rate = 10
-  ) {
+  constructor(props = {}) {
     this.start_time = null;
-    this.on_start = on_start;
-    this.on_end = on_end;
+    this.on_start = props.on_start || null;
+    this.on_end = props.on_end || null;
+    this.on_update = props.on_update || null;
+    this.on_resume = props.on_resume || null;
+    this.on_pause = props.on_pause || null;
     this.is_running = false;
-    this.on_update = on_update;
-    this.update_interval_rate = update_interval_rate;
+    this.update_interval_rate = props.update_interval_rate || 10;
     this.interval = null;
     this.paused_time = null;
     this.elapsed_time = 0;
@@ -31,7 +30,9 @@ class Timer {
     this.start_time = time;
 
     if (!this.paused_time) {
-      this.on_start();
+      if (this.on_start && is_function(this.on_start)) {
+        this.on_start();
+      }
     }
 
     this.interval = setInterval(() => {
@@ -40,9 +41,19 @@ class Timer {
   }
 
   update() {
-    this.on_update();
+    if (this.on_update && is_function(this.on_update)) {
+      this.on_update();
+    }
+
     this.elapsed_time = this.get_elapsed_time();
     return this.elapsed_time;
+  }
+
+  resume() {
+    if (this.on_resume && is_function(this.on_resume)) {
+      this.on_resume();
+    }
+    this.start();
   }
 
   pause() {
@@ -56,27 +67,34 @@ class Timer {
     }
 
     const end_time = this.get_elapsed_time();
+    this.elapsed_time = end_time;
     this.is_running = false;
-    this.on_end();
+    if (this.on_end && is_function(this.on_end)) {
+      this.on_end();
+    }
     this.start_time = null;
     clearInterval(this.interval);
     return end_time;
   }
 
-  resume() {
-    // Leaving this here to add on_resume function
-    this.start();
+  get_elapsed_time() {
+    // Private function to calculate elapsed time
+    return this.start_time ? Date.now() - this.start_time : null;
   }
 
-  get_elapsed_time() {
-    return this.start_time ? Date.now() - this.start_time : null;
+  get_time() {
+    // Public function to return elapsed time
+    return this.elapsed_time;
   }
 }
 
 class FixedTimer extends Timer {
-  constructor(duration, on_start, on_end, on_update, update_interval_rate) {
-    super(on_start, on_end, on_update, update_interval_rate);
-    this.duration = duration;
+  constructor(props) {
+    super(props);
+    if (!props || !props.duration) {
+      throw new Error("FixedTimer requires a duration");
+    }
+    this.duration = props.duration;
   }
 
   update() {
@@ -84,7 +102,9 @@ class FixedTimer extends Timer {
     if (this.elapsed_time >= this.duration) {
       this.stop();
     } else {
-      this.on_update();
+      if (this.on_update && is_function(this.on_update)) {
+        this.on_update();
+      }
     }
 
     return this.elapsed_time;

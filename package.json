@@ -1,11 +1,13 @@
 {
   "name": "basic_timers",
-  "version": "0.1.5",
-  "description": "Timer classes, includes basic stopwatch and countdown timers",
-  "main": "timer.js",
+  "version": "0.3.0",
+  "description": "Timer classes, includes basic stopwatch, countdown and interval timers",
+  "main": "dist/index.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "webpack --mode production",
+    "test": "jest",
+    "test:watch": "npm run test -- --watch"
   },
   "repository": {
     "type": "git",
@@ -21,5 +23,14 @@
   "bugs": {
     "url": "https://github.com/BrannanC/basic_timers/issues"
   },
-  "homepage": "https://github.com/BrannanC/basic_timers#readme"
+  "homepage": "https://github.com/BrannanC/basic_timers#readme",
+  "devDependencies": {
+    "@babel/core": "^7.10.3",
+    "@babel/preset-env": "^7.10.3",
+    "babel-jest": "^26.0.1",
+    "babel-loader": "^8.1.0",
+    "jest": "^26.0.1",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.12"
+  }
 }
