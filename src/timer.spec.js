@@ -1,6 +1,9 @@
 import { Timer } from "./timer.js";
-import { advance_timer, restore_date_now } from "./util/testing-tools.js";
-import { convert_to_sec } from "./util/time-conversion.js";
+import {
+  advance_timer,
+  restore_date_now,
+  convert_to_sec,
+} from "./util/index.js";
 // testing reference
 // https://jestjs.io/docs/en/getting-started.html
 // https://www.robinwieruch.de/node-js-jest
@@ -58,7 +61,7 @@ describe("timer.js", () => {
       timer.start();
       advance_timer(advance_time);
       timer.pause();
-      expect(timer.is_running).toBe(true);
+      expect(timer.is_running).toBe(false);
       expect(timer.paused_time).toBeTruthy();
       timer.stop();
     });
@@ -77,7 +80,7 @@ describe("timer.js", () => {
       timer.start();
       advance_timer(advance_time);
       const end_time = timer.stop();
-      expect(timer.is_running).toBe(false);
+      expect(timer.is_running).toBeFalsy();
       expect(timer.start_time).toBeNull();
       expect(convert_to_sec(end_time)).toBe(convert_to_sec(advance_time));
     });
