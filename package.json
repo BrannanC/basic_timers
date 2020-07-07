@@ -5,8 +5,8 @@
   "main": "dist/index.js",
   "type": "module",
   "scripts": {
-    "build": "webpack --mode production",
-    "test": "jest",
+    "build": "webpack --mode production --config webpack.config.cjs",
+    "test": "jest --config jest.config.cjs",
     "test:watch": "npm run test -- --watch"
   },
   "repository": {
