@@ -1,19 +1,6 @@
 import { is_function } from "./util/index.js";
 
 class Timer {
-  // constructor(props = {}) {
-  //   this.start_time = null;
-  //   this.on_start = props.on_start || null;
-  //   this.on_end = props.on_end || null;
-  //   this.on_update = props.on_update || null;
-  //   this.on_resume = props.on_resume || null;
-  //   this.on_pause = props.on_pause || null;
-  //   // this.is_running = false;
-  //   this.update_interval_rate = props.update_interval_rate || 10;
-  //   this.interval = null;
-  //   this.paused_time = null;
-  //   this.elapsed_time = 0;
-  // }
 
   constructor({
     on_start = null,
@@ -51,26 +38,16 @@ class Timer {
   }
 
   start(time = Date.now()) {
-    // if (this.is_running && !this.paused_time) {
     if (this.start_time) {
       return null;
     }
 
-    // Resume function
-    // if (this.is_running && this.paused_time) {
-    // if (this.is_paused) {
-    //   time = Date.now() - (this.paused_time - this.start_time);
-    //   this.paused_time = null;
-    // }
 
-    // this.is_running = true;
     this.start_time = time;
 
-    // if (!this.paused_time) {
     if (this.on_start && is_function(this.on_start)) {
       this.on_start();
     }
-    // }
 
     this.set_interval();
   }
@@ -121,7 +98,7 @@ class Timer {
 
     const end_time = this.get_elapsed_time();
     this.elapsed_time = end_time;
-    // this.is_running = false;
+    
     if (this.on_end && is_function(this.on_end)) {
       this.on_end();
     }
