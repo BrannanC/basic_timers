@@ -1,6 +1,6 @@
 {
   "name": "basic_timers",
-  "version": "0.3.0",
+  "version": "1.0.0",
   "description": "Timer classes, includes basic stopwatch, countdown and interval timers",
   "main": "dist/index.js",
   "type": "module",
