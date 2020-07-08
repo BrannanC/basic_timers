@@ -1,0 +1,65 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+}
+
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.flex-column {
+  flex-direction: column;
+}
+.container {
+  width: 700px;
+  height: 400px;
+  padding: 50px;
+  background: darkseagreen;
+}
+
+.border {
+  border: 1px solid black;
+}
+
+.container .display {
+  width: 100%;
+  height: 200px;
+  font-size: 7rem;
+  padding: 30px;
+}
+
+.control {
+  margin-top: 30px;
+}
+
+.control button {
+  width: 150px;
+  height: 50px;
+  font-size: 2rem;
+  text-transform: capitalize;
+}
+
+.stopped {
+  background: red;
+}
+
+.running {
+  background: green;
+}
+
+.paused {
+  background: yellow;
+}

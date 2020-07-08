@@ -1,10 +1,21 @@
 # Basic timers
 
+basic_timers provides timers that run like a stopwatch. Can be used in any JavaScript project where timers are needed.
+
+### Installation
+
+To install the most recent stable version:
+
+##### Using NPM:
+
 ```console
 npm i basic_timers
 ```
 
-### Timer Class
+### Types of Timers
+
+<details>
+<summary>Timer</summary>
 
 Runs indefinitely until `end()` method is executed.
 
@@ -29,15 +40,20 @@ const timer = new Timer({
 });
 ```
 
-| Method           | description            |
-| ---------------- | ---------------------- |
-| timer.start()    | Starts timer           |
-| timer.pause()    | Pauses timer           |
-| timer.resume()   | Resumes a paused timer |
-| timer.end()      | Ends timer             |
-| timer.get_time() | Get total time elapsed |
+| Method / Attribute | description                                    |
+| ------------------ | ---------------------------------------------- |
+| timer.start()      | Starts timer                                   |
+| timer.pause()      | Pauses timer                                   |
+| timer.resume()     | Resumes a paused timer                         |
+| timer.end()        | Ends timer                                     |
+| timer.get_time()   | Get total time elapsed                         |
+| is_running         | Checks if timer is running and returns boolean |
+| is_paused          | Check if timer is paused and returns boolean   |
 
-### FixedTimer Class
+</details>
+
+<details>
+<summary>FixedTimer</summary>
 
 Runs for a fixed duration or until `end()` method is called.
 
@@ -59,7 +75,10 @@ const timer = new FixedTimer({
 // timer will run for 20 seconds
 ```
 
-### IntervalTimer Class
+</details>
+
+<details>
+<summary>IntervalTimer</summary>
 
 Runs indefinitely and times intervals.
 
@@ -90,3 +109,18 @@ console.log(timer.get_all_completed_intervals());
 | ----------------------------------- | ----------------------------------------------------------- |
 | timer.complete_interval()           | Adds total time for interval to list of completed intervals |
 | timer.get_all_completed_intervals() | Gets list of all completed intervals                        |
+
+</details>
+
+### Contributing
+
+First of all, thank you! We appreciate the contribution!
+
+When contributing to this repository, please first discuss the change you wish to make via issue,
+email, slack or any other method with the owners of this repository before making a change.
+
+Please [create an issue](https://github.com/BrannanC/basic_timers/issues/new) if you would like to request a feature or report a bug.
+
+## License
+
+MIT

@@ -1,5 +1,5 @@
 import { Timer } from "./timer.js";
-import { is_function } from "./util/type-checks.js";
+import { is_function } from "./util/index.js";
 
 class IntervalTimer extends Timer {
   constructor(props = {}) {
