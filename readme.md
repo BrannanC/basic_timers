@@ -40,13 +40,15 @@ const timer = new Timer({
 });
 ```
 
-| Method           | description            |
-| ---------------- | ---------------------- |
-| timer.start()    | Starts timer           |
-| timer.pause()    | Pauses timer           |
-| timer.resume()   | Resumes a paused timer |
-| timer.end()      | Ends timer             |
-| timer.get_time() | Get total time elapsed |
+| Method / Attribute | description                                    |
+| ------------------ | ---------------------------------------------- |
+| timer.start()      | Starts timer                                   |
+| timer.pause()      | Pauses timer                                   |
+| timer.resume()     | Resumes a paused timer                         |
+| timer.end()        | Ends timer                                     |
+| timer.get_time()   | Get total time elapsed                         |
+| is_running         | Checks if timer is running and returns boolean |
+| is_paused          | Check if timer is paused and returns boolean   |
 
 </details>
 
