@@ -1,22 +1,28 @@
-import Timer from "basic_timers";
+import { Timer } from "basic_timers";
 
 const timer = init_timer();
 
 const [container] = document.getElementsByClassName("container");
 const [display] = document.getElementsByClassName("display");
+
 const pause = document.querySelector(".control .pause");
+pause.onclick = () => timer.pause();
+
+const start = document.querySelector(".control .start");
+start.onclick = () => timer.start();
+
+const stop = document.querySelector(".control .stop");
+stop.onclick = () => timer.stop();
 
 function init_timer() {
-  console.log(on_start, "start");
   const timer = new Timer({
     on_start,
     on_end,
     on_update,
+    on_pause,
+    on_resume,
   });
-
-  return (() => {
-    return timer;
-  })();
+  return timer;
 }
 
 const STATUS = { RUNNING: "running", STOPPED: "stopped", PAUSED: "paused" };
@@ -37,23 +43,23 @@ function on_start() {
 function on_end() {
   set_status(STATUS.STOPPED);
   display.textContent = "0";
-  pause.onclick = on_pause;
+  pause.onclick = () => on_pause();
   pause.textContent = "pause";
 }
 
 function on_pause() {
-  if (timer.is_running && !timer.paused_time) {
+  console.log("pause");
+  if (timer.is_paused) {
     set_status(STATUS.PAUSED);
-    pause.onclick = on_resume;
-    timer.pause();
+    console.log("inside");
+    pause.onclick = () => timer.resume();
     pause.textContent = "resume";
   }
 }
 
 function on_resume() {
   set_status(STATUS.RUNNING);
-  pause.onclick = on_pause;
-  timer.resume();
+  pause.onclick = () => on_pause();
   pause.textContent = "pause";
 }
 
