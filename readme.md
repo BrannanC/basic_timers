@@ -140,6 +140,9 @@ console.log(timer.get_all_completed_intervals());
 
 </details>
 
+### Examples
+Here's [very basic example](https://epic-nightingale-93ae06.netlify.app/) in action. You can see the code [here](https://github.com/BrannanC/basic_timers/tree/development/example). If you would like to add a project too this section feel free to make a PR or contact us.
+
 ### Contributing
 
 First of all, thank you! We appreciate the contribution!
