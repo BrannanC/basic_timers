@@ -89,7 +89,8 @@ function on_end() {
   display.textContent = "0";
 
   pause.onclick = function () {
-    return on_pause();
+    // return on_pause();
+    timer.pause();
   };
 
   pause.textContent = "pause";
@@ -98,7 +99,7 @@ function on_end() {
 function on_pause() {
   console.log("pause");
 
-  if (timer.is_paused) {
+  // if (timer.is_paused) {
     set_status(STATUS.PAUSED);
     console.log("inside");
 
@@ -107,14 +108,15 @@ function on_pause() {
     };
 
     pause.textContent = "resume";
-  }
+  // }
 }
 
 function on_resume() {
   set_status(STATUS.RUNNING);
 
   pause.onclick = function () {
-    return on_pause();
+    // return on_pause();
+    timer.pause();
   };
 
   pause.textContent = "pause";

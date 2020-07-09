@@ -43,24 +43,27 @@ function on_start() {
 function on_end() {
   set_status(STATUS.STOPPED);
   display.textContent = "0";
-  pause.onclick = () => on_pause();
+  // pause.onclick = () => on_pause();
+  pause.onclick = () => timer.pause();
   pause.textContent = "pause";
 }
 
 function on_pause() {
   console.log("pause");
-  if (timer.is_paused) {
-    set_status(STATUS.PAUSED);
-    console.log("inside");
-    pause.onclick = () => timer.resume();
-    pause.textContent = "resume";
-  }
+  // if (timer.is_paused) {
+  set_status(STATUS.PAUSED);
+  console.log("inside");
+  pause.onclick = () => timer.resume();
+  pause.textContent = "resume";
+  console.dir(pause);
+  // }
 }
 
 function on_resume() {
   set_status(STATUS.RUNNING);
-  pause.onclick = () => on_pause();
+  pause.onclick = () => timer.pause();
   pause.textContent = "pause";
+  console.dir(pause);
 }
 
 function on_update() {
