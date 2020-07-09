@@ -1,41 +1,22 @@
+import Timer from "basic_timers";
+
 const timer = init_timer();
 
 const [container] = document.getElementsByClassName("container");
 const [display] = document.getElementsByClassName("display");
-const btn_pause = document.querySelector(".control .pause");
+const pause = document.querySelector(".control .pause");
 
 function init_timer() {
+  console.log(on_start, "start");
   const timer = new Timer({
     on_start,
     on_end,
     on_update,
-    on_pause,
-    on_resume
   });
 
-  return timer;
-}
-
-function start() {
-  timer.start();
-}
-
-function stop() {
-  timer.stop();
-}
-
-function pause() {
-  timer.pause();
-}
-
-function resume() {
-  timer.resume();
-}
-
-function reset() {
-  display.textContent = "00:00:00:00";
-  btn_pause.onclick = pause;
-  btn_pause.textContent = "pause";
+  return (() => {
+    return timer;
+  })();
 }
 
 const STATUS = { RUNNING: "running", STOPPED: "stopped", PAUSED: "paused" };
@@ -49,24 +30,31 @@ function set_status(status) {
 }
 
 function on_start() {
+  console.log("start");
   set_status(STATUS.RUNNING);
 }
 
 function on_end() {
   set_status(STATUS.STOPPED);
-  reset();
+  display.textContent = "0";
+  pause.onclick = on_pause;
+  pause.textContent = "pause";
 }
 
 function on_pause() {
-  set_status(STATUS.PAUSED);
-  btn_pause.onclick = resume;
-  btn_pause.textContent = "resume";
+  if (timer.is_running && !timer.paused_time) {
+    set_status(STATUS.PAUSED);
+    pause.onclick = on_resume;
+    timer.pause();
+    pause.textContent = "resume";
+  }
 }
 
 function on_resume() {
   set_status(STATUS.RUNNING);
-  btn_pause.onclick = pause;
-  btn_pause.textContent = "pause";
+  pause.onclick = on_pause;
+  timer.resume();
+  pause.textContent = "pause";
 }
 
 function on_update() {
