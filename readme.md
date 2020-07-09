@@ -61,6 +61,12 @@ Runs for a fixed duration or until `end()` method is called.
 
 | Property Name | type | description                                                           | default  |
 | ------------- | ---- | --------------------------------------------------------------------- | -------- |
+| on_start             | Function | Function to be ran when timer starts           | null    |
+| on_end               | Function | Function to be ran when timer ends             | null    |
+| on_update            | Function | Function to be ran every time timer updates    | null    |
+| on_pause             | Function | Function to be ran every time timer is paused  | null    |
+| on_resume            | Function | Function to be ran every time timer is resumed | null    |
+| update_interval_rate | int      | Milliseconds between checking for update       | 10      |
 | duration      | int  | Milliseconds timer will run until timer.end() is called automatically | required |
 
 ```javascript
@@ -74,6 +80,15 @@ const timer = new FixedTimer({
 });
 // timer will run for 20 seconds
 ```
+| Method / Attribute | description                                    |
+| ------------------ | ---------------------------------------------- |
+| timer.start()      | Starts timer                                   |
+| timer.pause()      | Pauses timer                                   |
+| timer.resume()     | Resumes a paused timer                         |
+| timer.end()        | Ends timer                                     |
+| timer.get_time()   | Get total time elapsed                         |
+| is_running         | Checks if timer is running and returns boolean |
+| is_paused          | Check if timer is paused and returns boolean   |
 
 </details>
 
@@ -86,6 +101,12 @@ Runs indefinitely and times intervals.
 
 | Property Name        | type     | description                                      | default |
 | -------------------- | -------- | ------------------------------------------------ | ------- |
+| on_start             | Function | Function to be ran when timer starts           | null    |
+| on_end               | Function | Function to be ran when timer ends             | null    |
+| on_update            | Function | Function to be ran every time timer updates    | null    |
+| on_pause             | Function | Function to be ran every time timer is paused  | null    |
+| on_resume            | Function | Function to be ran every time timer is resumed | null    |
+| update_interval_rate | int      | Milliseconds between checking for update       | 10      |
 | on_complete_interval | Function | Function to be run when an interval is completed | null    |
 
 ```javascript
@@ -107,6 +128,13 @@ console.log(timer.get_all_completed_intervals());
 
 | Method                              | description                                                 |
 | ----------------------------------- | ----------------------------------------------------------- |
+| timer.start()      | Starts timer                                   |
+| timer.pause()      | Pauses timer                                   |
+| timer.resume()     | Resumes a paused timer                         |
+| timer.end()        | Ends timer                                     |
+| timer.get_time()   | Get total time elapsed                         |
+| is_running         | Checks if timer is running and returns boolean |
+| is_paused          | Check if timer is paused and returns boolean   |
 | timer.complete_interval()           | Adds total time for interval to list of completed intervals |
 | timer.get_all_completed_intervals() | Gets list of all completed intervals                        |
 
