@@ -36,27 +36,20 @@ function set_status(status) {
 }
 
 function on_start() {
-  console.log("start");
   set_status(STATUS.RUNNING);
 }
 
 function on_end() {
   set_status(STATUS.STOPPED);
   display.textContent = "0";
-  // pause.onclick = () => on_pause();
   pause.onclick = () => timer.pause();
   pause.textContent = "pause";
 }
 
 function on_pause() {
-  console.log("pause");
-  // if (timer.is_paused) {
   set_status(STATUS.PAUSED);
-  console.log("inside");
   pause.onclick = () => timer.resume();
   pause.textContent = "resume";
-  console.dir(pause);
-  // }
 }
 
 function on_resume() {

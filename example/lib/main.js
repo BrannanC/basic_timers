@@ -89,37 +89,31 @@ function on_end() {
   display.textContent = "0";
 
   pause.onclick = function () {
-    // return on_pause();
-    timer.pause();
+    return timer.pause();
   };
 
   pause.textContent = "pause";
 }
 
 function on_pause() {
-  console.log("pause");
+  set_status(STATUS.PAUSED);
 
-  // if (timer.is_paused) {
-    set_status(STATUS.PAUSED);
-    console.log("inside");
+  pause.onclick = function () {
+    return timer.resume();
+  };
 
-    pause.onclick = function () {
-      return timer.resume();
-    };
-
-    pause.textContent = "resume";
-  // }
+  pause.textContent = "resume";
 }
 
 function on_resume() {
   set_status(STATUS.RUNNING);
 
   pause.onclick = function () {
-    // return on_pause();
-    timer.pause();
+    return timer.pause();
   };
 
   pause.textContent = "pause";
+  console.dir(pause);
 }
 
 function on_update() {
